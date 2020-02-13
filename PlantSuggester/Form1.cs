@@ -32,9 +32,11 @@ namespace PlantSuggester
 
     private void houseConditionsChange(object sender, EventArgs e)
     {
+      // gets the user's input.
       int homeTemp = trkDegrees.Value;
       bool southFacingWindow = cbSouthWindow.Checked;
 
+      // checks if it should be showing the temperature warning
       if(homeTemp == MinTemp && showMinWarning == false)
       {
         MessageBox.Show(text: "Your house may be to cold for most houseplants.", caption: "Information");
@@ -45,13 +47,14 @@ namespace PlantSuggester
         MessageBox.Show(text: "Your house may be to warm for most houseplants.", caption: "Information");
         showMaxWarning = true;
       }
-      string suggestedPlant = GenerateSuggestion(homeTemp, southFacingWindow);
 
+      string suggestedPlant = GenerateSuggestion(homeTemp, southFacingWindow);
       lblPlantSuggest.Text = suggestedPlant;
     }
 
     private string GenerateSuggestion(int temp, bool southFacing)
     {
+      // generates a houseplant based on given parameters.
       if (southFacing)
       {
         if (temp > 65)
@@ -78,6 +81,7 @@ namespace PlantSuggester
 
     private string makeUrl(string plantName = null)
     {
+      //generates a url based on the plant name parameter.
       string url = "https://www.houseplant411.com";
 
       url = url + "/houseplant?hpq=" + plantName;
@@ -87,6 +91,7 @@ namespace PlantSuggester
 
     private void lnkplant411_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
+      // Navigates to a website.
       string url;
       if (lblPlantSuggest.Text == "Plant Suggestion")
       {

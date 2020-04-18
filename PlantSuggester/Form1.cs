@@ -17,6 +17,9 @@ namespace PlantSuggester
 
     bool showMinWarning = false;
     bool showMaxWarning = false;
+
+    HousePlantInfo plantInfo = new HousePlantInfo();
+
     public Form1()
     {
       InitializeComponent();
@@ -48,46 +51,13 @@ namespace PlantSuggester
         showMaxWarning = true;
       }
 
-      string suggestedPlant = GenerateSuggestion(homeTemp, southFacingWindow);
+      string suggestedPlant = plantInfo.GenerateSuggestion(homeTemp, southFacingWindow);
       lblPlantSuggest.Text = suggestedPlant;
     }
 
-    private string GenerateSuggestion(int temp, bool southFacing)
-    {
-      // generates a houseplant based on given parameters.
-      if (southFacing)
-      {
-        if (temp > 65)
-        {
-          return "Peace Lily";
-        }
-        else
-        {
-          return "Spider Plant";
-        }
-      }
-      else
-      {
-        if (temp > 65)
-        {
-          return "Dragon Tree";
-        }
-        else
-        {
-          return "Ivy";
-        }
-      }
-    }
+    
 
-    private string makeUrl(string plantName = null)
-    {
-      //generates a url based on the plant name parameter.
-      string url = "https://www.houseplant411.com";
-
-      url = url + "/houseplant?hpq=" + plantName;
-
-      return url;
-    }
+    
 
     private void lnkplant411_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
@@ -95,11 +65,11 @@ namespace PlantSuggester
       string url;
       if (lblPlantSuggest.Text == "Plant Suggestion")
       {
-        url = makeUrl();
+        url = plantInfo.makeUrl();
       }
       else
       {
-        url = makeUrl(lblPlantSuggest.Text);
+        url = plantInfo.makeUrl(lblPlantSuggest.Text);
       }
       System.Diagnostics.Process.Start(url);
     }
